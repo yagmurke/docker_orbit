@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  my_ros_container1:
+    build: .
+    volumes:
+      - type: bind 
+        source: /tmp/.X11-unix
+        target: /tmp/.X11-unix    
+      - type: bind
+        source: /etc/timezone
+        target: /etc/timezone     
+      - type: bind
+        source: /dev
+        target: /dev
+    # runtime: nvidia  # NVIDIA GPU desteğini etkinleştirir amd kullanıyorsanız yorum satırına alabilirsiniz.
+    devices:
+      - /dev:/dev
+    device_cgroup_rules:
+      - 'c 81:* rmw'
+      - 'c 189:* rmw'      
+    environment:
+      - DISPLAY=${DISPLAY}
+      - TZ=Turkey
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics
+    container_name: my_ros_container1
+    command: /bin/bash
+    tty: true
