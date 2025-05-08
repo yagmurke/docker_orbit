@@ -52,6 +52,7 @@ RUN apt update && apt install -y \
         sounddevice \
         pydub \
         speechrecognition \
+        edge-tts \
     && python3 -m pip uninstall -y numpy
 
 
